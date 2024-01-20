@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+	
+	
+	<h:head>
+	    <title>Facelet tittle Etudiants</title>
+	    <link href ="style.css" rel="style.css"/>
+	
+	</h:head>
+	
+	
+	<h:body>
+	   <div>
+	   
+	      <h1>Liste des etudiants</h1>
+	      
+	   <h:form>
+	             
+	         <p:dataTable value="#{EtudiantEjb.getLisEtudiants}" var = "item"
+	             style= " width:70%; margin: auto; text-align: left">
+	     
+	       	     <p:column>
+	                  <f:facet name="header">Id</f:facet>
+	                   #{item.id}
+	     
+	             </p:column>
+	     
+	     
+	             <p:column>
+	                   <f:facet name="header">Nom</f:facet>
+	                    #{item.nom}
+	     
+	              </p:column>
+	     
+	     
+	              <p:column>
+	                     <f:facet name="header">Prenom</f:facet>
+	                      #{item.prenom}
+	     
+	              </p:column>
+	     
+	     
+	              <p:column>
+	                      <f:facet name="header">Date de naissance</f:facet>
+	                       #{item.datenaiss}
+	     
+	              </p:column>
+	              
+	              
+	             <p:column colspaan= "2">
+	                 <f:facet name="header">Operations</f:facet>
+	                 
+	                 <div class="row box-space-top">
+	                 
+	                     <h:panelGroup styleClass="label">
+	                            <h:commandLink action= "#{EtudiantEjb.supprimerEtudiants(item)}" value= "Supprimer"/>
+	                     </h:panelGroup><br/>
+	                     
+	                     
+	                     <h:panelGroup styleClass="field">
+	                           <h:commandLink action= "#{EtudiantEjb.affiche(item)}" value= "Mettre a jour"/>
+	                     </h:panelGroup><br/>
+	                 
+	                 </div>
+	              
+	              
+	              </p:column>
+	              
+	              
+	     
+	          </p:dataTable>        
+
+	    </h:form>
+	    
+	    
+	    
+	    
+	    <div class="">
+	         <h1>Personne de etudiant</h1>
+	         
+	       <h:form>
+	         
+	         <h:panelGrid columns= "2" cellpadding= "3">
+	         
+	             <h:message for="userneame1"/><br/>
+	           <p:outputLabel for="username1" styleclass="block">Nom</p:outputLabel>
+	             <p:inputText id="username1" styleclass="block" value="" a:placeholder="votre nom"
+	             validatorMessage="Entrer votre nom."  required="true"/>
+	             
+	             
+	              <h:message for="userneame2"/><br/>
+	           <p:outputLabel for="username2" styleclass="block">Prenom</p:outputLabel>
+	             <p:inputText id="username2" styleclass="block" value="" a:placeholder="votre prenom"
+	             validatorMessage="Entrer votre prenom." required="true"/>
+	             
+	             
+	              <h:message for="datenaiss"/><br/>
+	           <p:outputLabel styleclass="block">Date de naissance</p:outputLabel>
+	           
+	           <p:calendar id="datenaiss" value= "" required="true" a:placeholder="votre date de naissance" 
+	               pattern="yyyy-MM-dd" mode="popup" showOn= "button" validatorMessage="veuillez entrer votre date de naissance!"></p:calendar>
+	               
+	               <h:commandButton action="#{EtudiantEjb.ajoutEtudiant()}" value="Ajouter un etudiant"/>
+	       
+	         
+	          </h:panelGrid>
+	         
+	         
+	       </h:form>
+	    
+	     </div>
+	     
+	     <div class="#{EtudiantEjb.modif?'null': 'card'}">
+	         <h1>Edite etudiant</h1>
+	         
+	       <h:form>
+	         
+	         <h:panelGrid columns= "2" cellpadding= "3">
+	         
+	             <h:message for="userneame1"/><br/>
+	           <p:outputLabel for="username1" styleclass="block">Nom</p:outputLabel>
+	             <p:inputText id="username1" styleclass="block" value="#{EtudiantEjb.etudiant.nom}" a:placeholder="votre nom"
+	             validatorMessage="Entrer votre nom." rendered="true"/>
+	             
+	             
+	              <h:message for="userneame2"/><br/>
+	           <p:outputLabel for="username2" styleclass="block">Prenom</p:outputLabel>
+	             <p:inputText id="username2" styleclass="block" value="#{EtudiantEjb.etudiant.prenom}" a:placeholder="votre prenom"
+	             validatorMessage="Entrer votre prenom." rendered="true"/>
+	             
+	             
+	              <h:message for="datenaiss"/><br/>
+	           <p:outputLabel styleclass="block">Date de naissance</p:outputLabel>
+	           
+	           <p:calendar id="datenaiss" value= "#{EtudiantEjb.etudiant.date}" required="true" a:placeholder="votre date de naissance" 
+	               pattern="yyyy-MM-dd" mode="popup" showOn= "button" validatorMessage="veuillez entrer votre date de naissance."></p:calendar>
+	               
+	               <h:commandButton action="#{EtudiantEjb.modifEtudiant()}" value="Mettre a jour"/>
+	       
+	         
+	          </h:panelGrid>
+	         
+	         
+	       </h:form>
+	    
+	     </div>
+	   
+	   </div>
+	  
+	
+	</h:body>
+
+
+
+
+</html>
